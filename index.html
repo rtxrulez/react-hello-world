@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello World. React</title>
+    <link rel="stylesheet" href="https://yastatic.net/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <!-- <script src="https://yastatic.net/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+    <script type="text/babel">
+        var Header = React.createClass({
+            render: function() {
+                return (
+                    <header className="navbar navbar-inverse">
+                        <div className="container">
+                            <div className="navbar-header">
+                                <a href="/" className="navbar-brand">React App</a>
+                            </div>
+                            <ul className="nav navbar-nav">
+                                <li>
+                                    <a href="#">Зеленый фон</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </header>
+                )
+            }
+        });
+
+        var Phone = React.createClass({
+            render: function() {
+                return (
+                    <ul styles="margin-bottom: 15px;">
+                        <li>
+                            <b>Модель:</b>
+                            <span>{this.props.model}</span>
+                        </li>
+                        <li>
+                            <b>Платформа:</b>
+                            <span>{this.props.platform}</span>
+                        </li>
+                    </ul>
+                )
+            }
+        })
+
+        var Task = React.createClass({
+            edit: function() {
+                console.log('Редактировать')
+            },
+            delete: function() {
+                console.info('Удалить')
+            },
+            handleCheck: function() {
+                console.log('check');
+                this.setState({
+                    checked: !this.state.checked
+                })
+            },
+            setColor: function(e) {
+                console.log('color', e);
+            },
+            getInitialState: function() {
+                return {
+                    checked: true,
+                    color: '#ffffff'
+                }
+            },
+            render: function() {
+                var msg;
+                if (this.state.checked) {
+                    msg = 'Выбрано'
+                } else {
+                    msg = 'Не выбрано'
+                }
+                return (
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            Чексбокс {msg}
+                        </div>
+                        <div className="panel-body">
+                            {this.props.children}
+                            {this.state.color}
+                        </div>
+                        <div className="panel-footer">
+                            <div className="btn-group">
+                                <button onClick={this.edit} className="btn btn-primary edit">Редактировать</button>
+                                <button onClick={this.delete} className="btn btn-danger delete">Удалить</button>
+                            </div>
+                            <div className="checkbox">
+                                <label>
+                                    <input
+                                    type="checkbox"
+                                    onChange={this.handleCheck}
+                                    defaultCheckbox={this.state.checked}
+                                    />
+                                    Выбрать
+                                </label>
+                            </div>
+                            <div>
+                                Color:
+                                <input
+                                onChange={this.setColor}
+                                type="color"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        })
+
+        var Main = React.createClass({
+            render: function() {
+                return (
+                    <main className="container">
+                        <Task>Task One </Task>
+                        <Task>Task two </Task>
+                        <Task>Task three </Task>
+                    </main>
+                )
+            }
+        })
+
+        ReactDOM.render(
+            <div>
+                <Header />
+                <Main />
+            </div>,
+             document.getElementById('root') );
+    </script>
+</body>
+
+</html>
