@@ -118,14 +118,37 @@
             }
         })
 
-        var Main = React.createClass({
+        var Field = React.createClass({
+            getInitialState: function() {
+                return {
+                    tasks: {
+                        "React",
+                        "Angular",
+                        "Vue",
+                        "Jquery"
+                    }
+                }
+            },
             render: function() {
                 return (
                     <main className="container">
-                        <Task>Task One </Task>
-                        <Task>Task two </Task>
-                        <Task>Task three </Task>
+                        {
+                            this.state.tasks.map(function(item, i) {
+                                return (<Task>{item}</Task>)
+                            })
+                        }
                     </main>
+                )
+            }
+        })
+
+
+        var Main = React.createClass({
+            render: function() {
+                return (
+                    <div>
+                        <Field/>
+                    </div>
                 )
             }
         })
