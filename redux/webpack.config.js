@@ -12,11 +12,13 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
-                loaders: ['babel'],
-                exclude: /node_modules/
-            },
-            {
+                test: /.jsx?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }, {
                 test: /\.scss/,
                 loader: 'style-loader!css-loader!sass-loader'
             }
@@ -26,7 +28,5 @@ module.exports = {
         path: 'src',
         filename: 'js/bundle.min.js'
     },
-    plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin()
-    ]
+    plugins: [new webpack.optimize.OccurrenceOrderPlugin()]
 };
